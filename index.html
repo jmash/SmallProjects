@@ -1,0 +1,209 @@
+<html>
+    <head>
+        <link href="css/smallprojects.css" rel="stylesheet">
+    </head>
+    <body>
+        <script>
+        </script>
+        <h1>Small Projects</h1>
+
+        <div class="progWrapper">
+            <div class="progSec">
+                <h2>FizzBuzz</h2>
+                <div id="fizzbuzzAnswer"></div>
+                <span class="clickShow" id="fizzbuzzShow"> Click for Code</span>
+            </div>
+            <div class="codeSec">
+                <code class="showCode">
+                    <pre id="fizzbuzzCode"></pre>
+                </code>
+            </div>
+        </div>
+
+        <div class="progWrapper">
+            <div class="progSec">
+                <h2>Reverse String</h2>
+                <input type="text" id="reverseStrInput" maxlength="40"/>
+                <button id="reverseStrSubmit" onclick="rs.reverse();">Submit</button>
+                <div class="answerBox" id="reverseStrAnswer"></div>
+                <span class="clickShow" id="reversestrShow"> Click for Code</span>
+            </div>
+            <div class="codeSec">
+                <code class="showCode">
+                    <pre id="reversestrCode"></pre>
+                </code>
+            </div>
+        </div>
+
+        <div class="progWrapper">
+            <div class="progSec">
+                <h2>Pig Latin Translator</h2>
+                <input type="text" id="pigLatinInput" maxlength="40" />
+                <button id="pigLatinSubmit" onclick="pl.translate();">Translate</button>
+                <div class="answerBox" id="pigLatinAnswer"></div>
+                <span class="clickShow" id="piglatinShow"> Click for Code</span>
+            </div>
+            <div class="codeSec">
+                <code class="showCode">
+                    <pre id="piglatinCode"></pre>
+                </code>
+            </div>
+        </div>
+
+        <div class="progWrapper">
+            <div class="progSec">
+                <h2>Vowel Counter</h2>
+                <input type="text" id="vowelCounterInput" value="" maxlength="100" />
+                <button id="vowelCounterSubmit" onclick="cv.vowels();">Count Vowels</button>
+                <div id="vowelCounterAnswer"></div>
+                <span class="clickShow" id="countvowelsShow"> Click for Code</span>
+            </div>
+            <div class="codeSec">
+                <code class="showCode">
+                    <pre id="countvowelsCode"></pre>
+                </code>
+            </div>
+        </div>
+
+        <div class="progWrapper">
+            <div class="progSec">
+                <h2>Palindrome Check</h2>
+                <input type="text" id="palindromeCheckInput" value="" maxlength="40"/>
+                <button id="palindromeCheckSubmit" onclick="cp.checkPalindrome();">Check if Palindrome</button>
+                <div class="answerBox" id="palindromeCheckAnswer"></div>
+                <span class="clickShow" id="checkpalindromeShow"> Click for Code</span>
+            </div>
+            <div class="codeSec">
+                <code class="showCode">
+                    <pre id="checkpalindromeCode"></pre>
+                </code>
+            </div>
+        </div>
+
+        <div class="progWrapper">
+            <div class="progSec">
+                <h2>Word Count</h2>
+                <textarea type="text" id="wordCountInput" maxlength="300"></textarea>
+                <button id="wordCountSubmit" onclick="wc.countWords();">Count Words</button>
+                <div id="wordCountAnswer1"></div>
+                <div id="wordCountAnswer2"></div>
+                <span class="clickShow" id="countwordsShow"> Click for Code</span>
+            </div>
+            <div class="codeSec">
+                <code class="showCode">
+                    <pre id="countwordsCode"></pre>
+                </code>
+            </div>
+        </div>
+
+        <script src="js/jquery-3.1.1.min.js"></script>
+        <script src="js/fizzbuzz.js" type="text/javascript"></script>
+        <script src="js/reversestr.js" type="text/javascript"></script>
+        <script src="js/piglatin.js" type="text/javascript"></script>
+        <script src="js/countvowels.js" type="text/javascript"></script>
+        <script src="js/checkpalindrome.js" type="text/javascript"></script>
+        <script src="js/countwords.js" type="text/javascript"></script>
+        <script>
+            window.onload = function() {
+                fb.print();
+                var programs = {
+                    "fizzbuzz": 0,
+                    "reversestr": 0,
+                    "piglatin": 0,
+                    "countvowels": 0,
+                    "checkpalindrome": 0,
+                    "countwords": 0
+                };
+                var progArray = [];
+                for (var p in programs) {
+                    progArray.push(p);
+                }
+                for (var i = 0; i < progArray.length; i++) {
+                    $(".codeSec").eq(i).css("z-index", progArray.length-i);
+                }
+                for (var p in programs) {
+                    $("#" + p + "Code").css("visibility", "hidden");
+                    $("#" + p + "Show").bind("click", showCodeClick);
+                }
+
+                function showCodeClick(e) {
+                    // get active program showing
+                    function getActive() {
+                        for (var p in programs) {
+                            if (programs[p] === 1) return p;
+                        }
+                        return null;
+                    }
+                    var activeShow = getActive();
+                    // toggle program code section that was clicked
+                    var programName = e.target.getAttribute("id").replace(/Show/, "");
+                    if (programs[programName] === 0) programs[programName] = 1;
+                    else programs[programName] = 0;
+                    // turn all non-active back to 0
+                    for (var p in programs) {
+                        if (activeShow !== programName)
+                            programs[activeShow] = 0;
+                    }
+                    console.log(programs);
+                    if (activeShow != null) {
+                        closeCodeAnim(activeShow);
+                    }
+                    for (var p in programs) {
+                        if (programs[p] === 1) openCodeAnim(p);
+                    }
+                }
+
+                function closeCodeAnim(active) {
+                    $("#" + active + "Code").attr("z-index", "1");
+                    if (document.getElementById(active+"Code")) {
+                        $("#" + active + "Code")
+                       .animate({width:0, height:0}, 500, function() {
+                        $(active + "Code").css("visibility", "hidden");
+                       });
+                    }
+                }
+
+                function openCodeAnim(program) {
+                    $("#" + program + "Code").attr("z-index", "2");
+                    if (document.getElementById(program+"Code")) {
+                        $("#" + program + "Show").unbind("click");
+                        $("#" + program + "Code").css("visibility", "visible")
+                       .animate({width: 500}, 500, function() {
+                           $("#" + program + "Code").animate({height:500}, 500, function(){
+                                $("#" + program + "Show").bind("click", showCodeClick);
+                           });
+                       });
+                    }
+                }
+
+                function formatBrackets(rt) {
+                    var formatted = [];
+                    for (var i in rt) {
+                        if (rt[i] == '<') { formatted.push("&lt;"); continue; }
+                        if (rt[i] == '>') { formatted.push("&gt;"); continue; }
+                        formatted.push(rt[i]);
+                    }
+                    formatted = formatted.join('');
+                    return formatted;
+                };
+
+                function displayCode() {
+                    for (var p in programs) {
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.p = p;
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState == 4 && this.status == 200) {
+                                var responseTextF = formatBrackets(this.responseText);
+                                document.getElementById(this.p + "Code").innerHTML = responseTextF;
+                            }
+                            formatBrackets(xhttp.responseText);
+                        }
+                        xhttp.open("GET", "js/" + p + ".js", true);
+                        xhttp.send();
+                    }
+                }
+                displayCode();
+            }
+        </script>
+    </body>
+</html>

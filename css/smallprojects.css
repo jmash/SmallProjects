@@ -1,0 +1,90 @@
+body {
+    font-family:sans-serif;
+}
+
+.progWrapper {
+    width:100%;
+    position:relative;
+}
+
+#fizzbuzzAnswer {
+    height:300px;
+    width:300px;
+    border:1px solid black;
+    overflow:scroll;
+}
+
+.answerBox {
+  margin-top:5px;
+  height:20px;
+  width:300px;
+  border:1px solid black;
+  margin-bottom:10px;
+}
+
+.scrollBox {
+  overflow:scroll;
+}
+
+.clickShow {
+    position:absolute;
+    top:0px;
+    left: 250px;
+    padding:5px;
+    cursor:pointer;
+    font-family:sans-serif;
+    font-size:12px;
+    color:green;
+    border-style:dotted;
+    border-color:green;
+    border-width:1px;
+    border-top-width:0;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+
+}
+
+.clickShow:hover {
+    color:white;
+    background-color:green;
+}
+
+.clickShow:active {
+    background-color:lightgreen;
+    -o-transition:.1s;
+    -ms-transition:.1s;
+    -moz-transition:.1s;
+    -webkit-transition:.1s;
+    transition:.1s;
+}
+
+.progSec {
+    display:inline-block;
+    width:39%;
+    border-top: 1px dotted green;
+    position:relative;
+}
+
+.codeSec {
+    display:inline-block;
+    width:60%;
+    position:absolute;
+}
+
+
+.showCode {
+}
+
+.showCode pre {
+    border: 1px dotted green;
+    background-color: lightgreen;
+    margin:0;
+    width:0;
+    height:0;
+    overflow:auto;
+    z-index:1;
+    visibility:hidden;
+}
